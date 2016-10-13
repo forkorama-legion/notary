@@ -1,6 +1,9 @@
 package notary
 
-import "time"
+import (
+	"os"
+	"time"
+)
 
 // application wide constants
 const (
@@ -16,6 +19,10 @@ const (
 	PrivKeyPerms = 0700
 	// PubCertPerms are the file permissions to use when writing public certificates to disk
 	PubCertPerms = 0755
+	// PermsExecutable indicates the executable bits
+	PermExecutable = 0111
+	// PermsExecutableMask mask the executable bits
+	PermExecutableMask = os.ModePerm ^ PermExecutable
 	// Sha256HexSize is how big a Sha256 hex is in number of characters
 	Sha256HexSize = 64
 	// Sha512HexSize is how big a Sha512 hex is in number of characters

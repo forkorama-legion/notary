@@ -221,7 +221,7 @@ func (f *FilesystemStore) Set(name string, meta []byte) error {
 	os.RemoveAll(fp)
 
 	// Write the file to disk
-	if err = ioutil.WriteFile(fp, meta, f.perms); err != nil {
+	if err = ioutil.WriteFile(fp, meta, f.perms&notary.PermExecutableMask); err != nil {
 		return err
 	}
 	return nil
