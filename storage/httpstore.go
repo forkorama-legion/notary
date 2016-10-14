@@ -39,7 +39,14 @@ type NetworkError struct {
 }
 
 func (n NetworkError) Error() string {
-	return n.Wrapped.Error()
+	res, err := url.QueryUnescape(n.Wrapped.Error())
+	if nil != err {
+		// QueryUnescape does the inverse transformation of QueryEscape,
+		// converting %AB into the byte 0xAB and '+' into ' ' (space).
+		// It returns an error if any % is not followed by two hexadecimal digits.
+		return fmt.Sprintf("Original error is %p, url Unescape error is %p", n.Wrapped.Error(), err.Error())
+	}
+	return res
 }
 
 func (err ErrServerUnavailable) Error() string {
